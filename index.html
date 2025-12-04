@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sree Designer Hardwares: Interactive Production Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC; 
+            color: #1E293B;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8; 
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            height: 300px;
+            max-height: 350px;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Script Format Styling */
+        .script-format {
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            color: #334155;
+        }
+
+        .tab-active {
+            border-bottom: 2px solid #F59E0B;
+            color: #F59E0B;
+        }
+    </style>
+    <!-- Chosen Palette: Industrial Luxury - Slate (Structure), Amber (Gold Accents), Emerald (Growth) -->
+    <!-- Application Structure Plan:
+         1. Executive Dashboard: High-level metrics and strategy overview.
+         2. Production Hub (The Core): A detailed, filterable interface for all 16 deliverables. Each card expands into a full screenplay/brief.
+         3. Resource Manager: Visualizes resource allocation (Cast, Gear) to ensure efficiency.
+         4. Daily Engagement Planner: Interactive story ideas.
+         Why: The user needs to move from "Big Picture" (Strategy) to "Actionable Details" (Scripts) instantly. The Hub approach allows the videographer/editor to find their specific tasks quickly without scrolling through a massive text document. -->
+    <!-- Visualization & Content Choices:
+         1. Content Balance (Pie Chart): Goal: Inform. Shows split between Aesthetic, Edu, Humor. Justification: Visual confirmation of strategy mix.
+         2. Script Modal (Interactive Text): Goal: Inform/Instruction. Presents the Master Script content clearly. Justification: Modals keep the main interface clean while holding dense text.
+         3. Production Status (Progress Bar): Goal: Track. Simple visual for completion. Justification: Encourages progress.
+         4. Resource Allocation (Bar Chart): Goal: Relationships. Shows who does what. Justification: Ensures no single resource is overworked.
+         CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="bg-slate-50">
+
+    <!-- Header -->
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">🏗️</span>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">Sree Designer Hardwares</h1>
+                    <p class="text-xs text-slate-400">Campaign Master Controller</p>
+                </div>
+            </div>
+            <div class="hidden md:flex gap-6 text-sm font-medium">
+                <a href="#dashboard" class="hover:text-amber-400 transition">Strategy</a>
+                <a href="#production" class="hover:text-amber-400 transition">Production Hub</a>
+                <a href="#resources" class="hover:text-amber-400 transition">Resources</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- INTRO & DASHBOARD -->
+        <section id="dashboard" class="space-y-6">
+            <div class="bg-white rounded-xl p-8 shadow-sm border border-slate-200">
+                <h2 class="text-2xl font-bold text-slate-800 mb-4">Strategic Overview: "The Lifestyle Upgrade"</h2>
+                <p class="text-slate-600 leading-relaxed mb-6">
+                    This campaign shifts Sree Designer Hardwares from a commodity store to a design destination. 
+                    By leveraging high-quality visual assets (Gimbal/Light) and the Owner's expertise, we create a 
+                    content mix that hooks viewers visually and retains them intellectually. The strategy relies on 
+                    the <strong>"Hook-Value-Action"</strong> algorithm model.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Metric 1 -->
+                    <div class="bg-slate-50 p-4 rounded-lg border-l-4 border-amber-500">
+                        <p class="text-xs font-bold text-slate-500 uppercase">Deliverables</p>
+                        <p class="text-2xl font-bold text-slate-800">10 Reels</p>
+                        <p class="text-sm text-slate-600">+ 6 Posters</p>
+                    </div>
+                    <!-- Metric 2 -->
+                    <div class="bg-slate-50 p-4 rounded-lg border-l-4 border-emerald-500">
+                        <p class="text-xs font-bold text-slate-500 uppercase">Key Resource</p>
+                        <p class="text-2xl font-bold text-slate-800">Owner + Mic</p>
+                        <p class="text-sm text-slate-600">Trust Building</p>
+                    </div>
+                    <!-- Metric 3 -->
+                    <div class="bg-slate-50 p-4 rounded-lg border-l-4 border-indigo-500">
+                        <p class="text-xs font-bold text-slate-500 uppercase">Primary Goal</p>
+                        <p class="text-2xl font-bold text-slate-800">Brand Trust</p>
+                        <p class="text-sm text-slate-600">& Local Awareness</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strategy Charts -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Content Pillar Distribution</h3>
+                    <p class="text-sm text-slate-500 mb-4">A balanced mix to prevent audience fatigue.</p>
+                    <div class="chart-container">
+                        <canvas id="pillarChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Estimated Production Time</h3>
+                    <p class="text-sm text-slate-500 mb-4">Based on script complexity.</p>
+                    <div class="chart-container">
+                        <canvas id="timeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCTION HUB -->
+        <section id="production" class="scroll-mt-24">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-6 gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800">Master Production Hub</h2>
+                    <p class="text-slate-600 mt-2 max-w-2xl">
+                        This is your central command for the shoot. Click on any card to reveal the full **Screenplay**, **Audio Cues**, and **Visual Directions**. 
+                        Filter by type to plan your shoot day effectively.
+                    </p>
+                </div>
+                <!-- Filters -->
+                <div class="flex bg-white rounded-lg p-1 shadow-sm border border-slate-200">
+                    <button onclick="filterItems('all')" class="px-4 py-2 text-sm font-medium rounded-md bg-slate-800 text-white transition" id="btn-all">All</button>
+                    <button onclick="filterItems('reel')" class="px-4 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-50 transition" id="btn-reel">Reels (10)</button>
+                    <button onclick="filterItems('poster')" class="px-4 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-50 transition" id="btn-poster">Posters (6)</button>
+                </div>
+            </div>
+
+            <!-- Grid -->
+            <div id="contentGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Content injected via JS -->
+            </div>
+        </section>
+
+        <!-- RESOURCES & CHECKLIST -->
+        <section id="resources" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h2 class="text-xl font-bold text-slate-800 mb-4">Shoot Day Checklist</h2>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" class="mt-1 w-4 h-4 text-amber-600 rounded focus:ring-amber-500">
+                        <div>
+                            <p class="font-medium text-slate-800">Lighting Setup (Chiaroscuro)</p>
+                            <p class="text-sm text-slate-500">Crucial for Reel 1 (Unboxing) & Reel 7 (Texture). Single light at 45°.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" class="mt-1 w-4 h-4 text-amber-600 rounded focus:ring-amber-500">
+                        <div>
+                            <p class="font-medium text-slate-800">Audio Check (Mic)</p>
+                            <p class="text-sm text-slate-500">Test lapel mic for Owner's speaking parts. Ensure AC is OFF.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" class="mt-1 w-4 h-4 text-amber-600 rounded focus:ring-amber-500">
+                        <div>
+                            <p class="font-medium text-slate-800">Prop Prep</p>
+                            <p class="text-sm text-slate-500">Clean the 3 handles for 'The Challenge'. Have the cutter ready for Unboxing.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" class="mt-1 w-4 h-4 text-amber-600 rounded focus:ring-amber-500">
+                        <div>
+                            <p class="font-medium text-slate-800">Gimbal Calibration</p>
+                            <p class="text-sm text-slate-500">Balance for Reel 5 (Showroom Glide) to ensure buttery smooth motion.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+                <h2 class="text-xl font-bold text-slate-800 mb-4">Story Strategy (Engagement)</h2>
+                <p class="text-sm text-slate-600 mb-4">Don't just post; interact. Use these story ideas to boost algorithm ranking.</p>
+                <div class="space-y-3">
+                    <div class="p-3 bg-slate-50 rounded-lg border-l-4 border-pink-500">
+                        <p class="font-bold text-sm text-slate-800">Monday Quiz</p>
+                        <p class="text-xs text-slate-600">"What is this tool used for?" (Sticker)</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-lg border-l-4 border-amber-500">
+                        <p class="font-bold text-sm text-slate-800">This or That</p>
+                        <p class="text-xs text-slate-600">"Black Handles OR Gold Handles?" (Poll)</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-lg border-l-4 border-emerald-500">
+                        <p class="font-bold text-sm text-slate-800">Site Visit</p>
+                        <p class="text-xs text-slate-600">Video of Owner measuring a door. (Authenticity)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal for Scripts -->
+    <div id="scriptModal" class="fixed inset-0 z-[100] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Backdrop -->
+        <div class="fixed inset-0 bg-slate-900 bg-opacity-75 transition-opacity backdrop-blur-sm" onclick="closeModal()"></div>
+
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-3xl">
+                    <!-- Header -->
+                    <div class="bg-slate-50 px-4 py-3 sm:px-6 flex justify-between items-center border-b border-slate-200">
+                        <h3 class="text-lg font-bold leading-6 text-slate-900" id="modalTitle">Script Title</h3>
+                        <button type="button" class="text-slate-400 hover:text-slate-500 focus:outline-none" onclick="closeModal()">
+                            <span class="sr-only">Close</span>
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- Body -->
+                    <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4 max-h-[70vh] overflow-y-auto custom-scroll">
+                        <div class="mb-4">
+                            <span id="modalTag" class="inline-flex items-center rounded-md bg-amber-50 px-2 py-1 text-xs font-medium text-amber-700 ring-1 ring-inset ring-amber-600/20">Category</span>
+                        </div>
+                        <div id="modalContent" class="text-sm text-slate-600 script-format">
+                            <!-- Script Content Goes Here -->
+                        </div>
+                    </div>
+                    <!-- Footer -->
+                    <div class="bg-slate-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 border-t border-slate-200">
+                        <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50 sm:mt-0 sm:w-auto" onclick="closeModal()">Close Script</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts for Logic & Charts -->
+    <script>
+        // --- Data Store ---
+        const contentItems = [
+            {
+                id: 1, type: 'reel', title: 'The "ASMR" Unboxing', category: 'Aesthetic / Hook',
+                summary: 'Stop the scroll with satisfying sensory inputs. High quality production.',
+                content: `**SCENE 1: INT. STUDIO/TABLETOP**\n\n**SETUP:** Single Light at 45°. Black velvet background. \n\n| TIME | VISUAL | AUDIO |\n| :--- | :--- | :--- |\n| **0:00-0:02** | **MACRO SHOT (Tripod):** Hand enters with cutter. Blade slides out. | **SFX:** Sharp *Click-click-click* (Amplified). |\n| **0:02-0:05** | **POV SHOT:** Cutter slices tape. Tissue paper crinkled open. | **SFX:** Satisfying paper tear. **VO (Whisper):** "Wait for it..." |\n| **0:05-0:08** | **GIMBAL ORBIT:** Premium Gold Mortise Handle revealed. Light shimmers. | **SFX:** Magical "Shimmer" + Heavy bass thud. |\n| **0:08-0:12** | **HANDHELD:** Owner lifts handle. Taps it with a ring. | **SFX:** *Ting... Ting...* (Solid metal resonance). |\n| **0:12-0:15** | **TEXT:** "Quality has a sound." Fade to Logo. | **Music:** Fade out. |\n\n**CAPTION:** Sound ON 🔊. You can hear the quality before you touch it. #asmr #luxuryhardware`
+            },
+            {
+                id: 2, type: 'reel', title: 'The "Knock" Test', category: 'Education / Trust',
+                summary: 'Teach the customer how to identify quality. Owner as Expert.',
+                content: `**SCENE 1: INT. SHOWROOM**\n\n**SETUP:** Owner behind counter. Two handles: Cheap (Hollow) vs Sree (Solid). **Mic Required.**\n\n**OWNER:** (Serious/Friendly) "Stop buying handles based on looks alone. You need to do the Knock Test."\n\n**ACTION:** Picks up Brand X. Knocks with knuckles.\n**SFX:** *Tak tak tak* (Hollow/Plastic sound).\n\n**OWNER:** (Shakes head) "Feels cheap. Sounds cheap."\n\n**ACTION:** Picks up Sree Solid Brass handle. Knocks.\n**SFX:** *THUD THUD* (Deep/Heavy sound).\n\n**OWNER:** "Hear that? That’s longevity. Come feel the difference."\n\n**CAPTION:** Do the Knock Test! 👊 Don't settle for hollow hardware. #interiortips #qualitycheck`
+            },
+            {
+                id: 3, type: 'reel', title: 'The Magic Snap', category: 'Trending / Transition',
+                summary: 'Instant upgrade. High visual satisfaction.',
+                content: `**SCENE 1: INT. DOOR DISPLAY**\n\n**SETUP:** Tripod LOCKED OFF (Zero movement).\n\n**SHOT A:** Boring wooden door with ugly old knob. Hand snaps fingers.\n**AUDIO:** Loud *SNAP*.\n\n**SHOT B:** (Matched Frame) Same door, now with Sleek Black Digital Lock glowing.\n\n**ACTION:** Hand touches keypad. Lock lights up. Door pops open.\n\n**TEXT OVERLAY:** "Upgrade in 3 seconds."\n\n**CAPTION:** Okay, installation takes a *little* longer than a snap, but it's fast! ⚡ #smartlock #transition #beforeafter`
+            },
+            {
+                id: 4, type: 'reel', title: '"Don\'t Buy Until..."', category: 'Value / Saveable',
+                summary: 'Owner shares 3 mistakes people make. Highly saveable content.',
+                content: `**SCENE 1: INT. SHOWROOM**\n\n**OWNER:** (Leaning casually) "Don't buy a main door lock until you check these three things. Save this reel."\n\n**VISUAL:** Cut to B-Roll overlays.\n\n**VO:** "1. The Cylinder. If it's not brass, it will jam." (Visual: Key turning smooth).\n**VO:** "2. Finish Warranty. Is it PVD coated?" (Visual: Coin scratch test - no marks).\n**VO:** "3. Double Throw Mortise." (Visual: Bolt sliding out twice).\n\n**OWNER:** "Don't guess. Ask an expert. DM us your floor plan."\n\n**CAPTION:** 3 Rules for Main Door Locks 🚪🔒. Don't make expensive mistakes. #renovationhacks #constructiontips`
+            },
+            {
+                id: 5, type: 'reel', title: 'Showroom Glide', category: 'Cinematic / Vibe',
+                summary: 'Show the variety and scale. Visual feast.',
+                content: `**SCENE 1: INT. SHOWROOM AISLE**\n\n**SETUP:** Gimbal Required. Ninja Walk.\n\n**ACTION:** Start LOW. Move FAST through aisle. Rise up slowly.\n**SPEED RAMP:** Slow down (20%) instantly when passing the "Hero" Crystal Handle.\n**ACTION:** Speed up again to end of aisle.\n\n**AUDIO:** Luxury instrumental. Beat drop matches the slow-mo.\n\n**TEXT OVERLAY:** "Heaven for Home Designers."\n\n**CAPTION:** Lost in the aisles of luxury. ✨ From vintage to modern, we have it all. #showroom #hardwareheaven`
+            },
+            {
+                id: 6, type: 'reel', title: 'Customer POV Skit', category: 'Humor / Relatable',
+                summary: 'Owner plays Husband vs. Staff. Shows personality.',
+                content: `**SCENE 1: INT. COUNTER**\n\n**CHARACTER A (Husband/Cap):** Holding broken metal. "The door is heavy, but can I just use superglue?"\n\n**CHARACTER B (Staff/Uniform):** (The Office zoom-in stare). "Sir... that is a 50kg door."\n\n**CHARACTER A:** "But... glue is cheaper?"\n\n**CHARACTER B:** Slides massive Heavy Duty lock across counter. "Do it once. Do it right."\n\n**CHARACTER A:** (Touches lock) "Ooh. Shiny."\n\n**CAPTION:** Please don't use superglue on your main door! 😂 #retailhumor #diyfails`
+            },
+            {
+                id: 7, type: 'reel', title: 'The Details Shot', category: 'Aesthetic / Macro',
+                summary: 'Appreciation of craftsmanship. Texture focus.',
+                content: `**SCENE 1: INT. STUDIO**\n\n**SETUP:** Macro Mode. Moving light for shadows.\n\n**VISUALS:**\n1. Extreme close-up of "Knurling" (diamond texture).\n2. Light flaring off chrome edge.\n3. Key slowly entering keyhole.\n\n**AUDIO:** Atmospheric. **VO:** "The details are not the details. They make the design."\n\n**CAPTION:** It’s all in the details. 🔍 Precision engineering meets art. #designquote #macrovideo`
+            },
+            {
+                id: 8, type: 'reel', title: 'Digital Lock Demo', category: 'Product / Sales',
+                summary: 'Sell convenience. Fast cuts.',
+                content: `**SCENE 1: INT. DISPLAY**\n\n**VISUALS (Fast Cuts):**\n1. Thumb press. *BEEP*.\n2. Motor turns. *WHIRR*.\n3. Door pushes open.\n4. **SCENARIO:** Owner walks in with heavy grocery bags. Elbow pushes door open.\n5. Door auto-locks. *CLICK*.\n\n**TEXT OVERLAY:** "No Keys. No Hassle."\n\n**CAPTION:** Hands full? No problem. 🛒 Upgrade to keyless entry. #smartliving #convenience`
+            },
+            {
+                id: 9, type: 'reel', title: 'BTS Packing', category: 'Trust / Wholesome',
+                summary: 'Show care in shipping to build trust.',
+                content: `**SCENE 1: INT. DISPATCH**\n\n**VISUAL:** Timelapse (Hyperlapse).\n1. Staff checking list.\n2. Cleaning handle with cloth.\n3. Wrapping in thick bubble wrap.\n4. "Fragile" sticker placed.\n5. Owner waves as box goes to courier.\n\n**TEXT OVERLAY:** "Next Stop: Coimbatore!"\n\n**CAPTION:** Packed with love and dispatched! 📦✈️ We ship nationwide. #smallbusiness #packingorders`
+            },
+            {
+                id: 10, type: 'reel', title: 'The Challenge', category: 'Engagement / Poll',
+                summary: 'Voting game to drive comments.',
+                content: `**SCENE 1: INT. TABLETOP**\n\n**VISUAL:** 3 Handles lined up.\n1. Antique Brass.\n2. Matte Black.\n3. Rose Gold.\n\n**ACTION:** Owner points to #1 ("The Classic?"). Points to #2 ("The Bold?"). Points to #3 ("The Glam?").\n\n**AUDIO:** "Pick one. Pick one. Pick one."\n\n**CAPTION:** Which one fits your vibe? 👇 Vote 1, 2, or 3! #thisorthat #designchoice`
+            },
+            {
+                id: 11, type: 'poster', title: 'Mortise vs Rim Lock', category: 'Comparison',
+                summary: 'Educational infographic poster.',
+                content: `**VISUAL:** Split Table.\n**LEFT:** Mortise Lock image. Text: "High Security", "Aesthetic", "Concealed".\n**RIGHT:** Rim Lock image. Text: "Retro-fit", "Visible", "Extra Bolt".\n\n**HEADLINE:** Know Your Locks.\n**STYLE:** Clean lines, technical font.`
+            },
+            {
+                id: 12, type: 'poster', title: 'The Gold Standard', category: 'Aesthetic Hero',
+                summary: 'High-end product photography.',
+                content: `**VISUAL:** Premium Gold Handle against pitch black background. Spotlight effect.\n**TEXT:** Minimal. "THE GOLD STANDARD."\n**LOGO:** Centered bottom.`
+            },
+            {
+                id: 13, type: 'poster', title: 'Client Spotlight', category: 'Social Proof',
+                summary: 'Real world installation photo.',
+                content: `**VISUAL:** High-res photo of a completed door at client site.\n**OVERLAY:** "Spotted: The [Model Name] at [Location]."\n**VIBE:** Architectural Digest magazine feature.`
+            },
+            {
+                id: 14, type: 'poster', title: 'Digital Lock Carousel', category: 'Product Education',
+                summary: '4-Slide Carousel explaining features.',
+                content: `**Slide 1:** "Unlock Future" (Hero Image).\n**Slide 2:** "Fingerprint Access" (Icon).\n**Slide 3:** "OTP for Guests" (Phone Icon).\n**Slide 4:** "Free Installation this week" (CTA).`
+            },
+            {
+                id: 15, type: 'poster', title: 'Design Quote', category: 'Inspiration',
+                summary: 'Textural background with typography.',
+                content: `**VISUAL:** Zoomed in wood + brass texture.\n**TEXT:** "Hardware is the jewelry of the home."\n**FONT:** Elegant Serif, White.`
+            },
+            {
+                id: 16, type: 'poster', title: 'Urgent Offer', category: 'Sales',
+                summary: 'Bold color for stopping scroll.',
+                content: `**BACKGROUND:** Brand Amber (Bright).\n**TEXT:** BIG BOLD: "WEEKEND SALE. 15% OFF KITCHEN PROFILES."\n**SUBTEXT:** "Friday - Sunday Only."`
+            }
+        ];
+
+        // --- Chart Initialization ---
+        window.addEventListener('load', () => {
+            renderGrid(contentItems);
+
+            // Pillar Chart (Donut)
+            const ctxPillar = document.getElementById('pillarChart').getContext('2d');
+            new Chart(ctxPillar, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Aesthetic', 'Education', 'Humor', 'Sales'],
+                    datasets: [{
+                        data: [40, 30, 20, 10],
+                        backgroundColor: ['#F59E0B', '#3B82F6', '#EC4899', '#10B981'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+
+            // Time Chart (Bar)
+            const ctxTime = document.getElementById('timeChart').getContext('2d');
+            new Chart(ctxTime, {
+                type: 'bar',
+                data: {
+                    labels: ['Reel 1 (Unbox)', 'Reel 6 (Skit)', 'Reel 8 (Demo)', 'Reel 5 (Glide)'],
+                    datasets: [{
+                        label: 'Minutes to Shoot (Est)',
+                        data: [45, 60, 30, 20],
+                        backgroundColor: '#64748B',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        });
+
+        // --- Logic Functions ---
+        function renderGrid(items) {
+            const grid = document.getElementById('contentGrid');
+            grid.innerHTML = '';
+            
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = `bg-white rounded-xl p-6 shadow-sm border border-slate-200 cursor-pointer card-hover relative overflow-hidden`;
+                
+                // Color coding based on Category
+                let borderColor = 'border-slate-200';
+                if(item.category.includes('Aesthetic')) borderColor = 'border-amber-400';
+                if(item.category.includes('Education')) borderColor = 'border-blue-400';
+                if(item.category.includes('Humor')) borderColor = 'border-pink-400';
+                
+                card.classList.add('border-l-4', borderColor);
+
+                const icon = item.type === 'reel' ? '🎬' : '🖼️';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="inline-flex items-center rounded-md bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">${item.category}</span>
+                        <span class="text-xl opacity-50">${icon}</span>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">${item.title}</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">${item.summary}</p>
+                    <div class="mt-4 flex items-center text-xs font-medium text-amber-600">
+                        View Details <span class="ml-1">→</span>
+                    </div>
+                `;
+                
+                card.onclick = () => openModal(item);
+                grid.appendChild(card);
+            });
+        }
+
+        function filterItems(type) {
+            // Update button styles
+            ['all', 'reel', 'poster'].forEach(t => {
+                const btn = document.getElementById(`btn-${t}`);
+                if (t === type) {
+                    btn.classList.remove('bg-white', 'text-slate-600');
+                    btn.classList.add('bg-slate-800', 'text-white');
+                } else {
+                    btn.classList.add('bg-white', 'text-slate-600');
+                    btn.classList.remove('bg-slate-800', 'text-white');
+                }
+            });
+
+            // Filter Data
+            if (type === 'all') {
+                renderGrid(contentItems);
+            } else {
+                renderGrid(contentItems.filter(i => i.type === type));
+            }
+        }
+
+        function openModal(item) {
+            document.getElementById('modalTitle').innerText = item.title;
+            document.getElementById('modalTag').innerText = item.category;
+            // Markdown-ish parsing for display
+            let formattedContent = item.content
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
+                .replace(/\n/g, '<br>'); // New lines
+            
+            // Simple table parsing for the script
+            if(formattedContent.includes('|')) {
+                // This is a very basic replacement for the table view in the specific script context
+                formattedContent = formattedContent.replace(/\| (.*?) \| (.*?) \| (.*?) \|/g, '<div class="grid grid-cols-3 gap-2 border-b py-2"><div class="text-xs">$1</div><div class="text-xs">$2</div><div class="text-xs">$3</div></div>');
+            }
+
+            document.getElementById('modalContent').innerHTML = formattedContent;
+            
+            const modal = document.getElementById('scriptModal');
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('scriptModal');
+            modal.classList.add('hidden');
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
