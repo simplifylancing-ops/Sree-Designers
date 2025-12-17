@@ -62,15 +62,13 @@
     <!-- Chosen Palette: Industrial Luxury - Slate (Structure), Amber (Gold Accents), Emerald (Growth) -->
     <!-- Application Structure Plan:
          1. Executive Dashboard: High-level metrics and strategy overview.
-         2. Production Hub (The Core): A detailed, filterable interface for all 16 deliverables. Each card expands into a full screenplay/brief.
-         3. Resource Manager: Visualizes resource allocation (Cast, Gear) to ensure efficiency.
-         4. Daily Engagement Planner: Interactive story ideas.
-         Why: The user needs to move from "Big Picture" (Strategy) to "Actionable Details" (Scripts) instantly. The Hub approach allows the videographer/editor to find their specific tasks quickly without scrolling through a massive text document. -->
+         2. Production Hub (The Core): A detailed, filterable interface for all deliverables (Reels, Posters, Stories).
+         3. Resource Manager: Visualizes resource allocation.
+         4. Daily Engagement Planner: Integrated into the hub as "Stories".
+         Why: Stories are now treated as "Deliverables" to ensure they actually get done. They are low-effort but high-impact for the algorithm. -->
     <!-- Visualization & Content Choices:
-         1. Content Balance (Pie Chart): Goal: Inform. Shows split between Aesthetic, Edu, Humor. Justification: Visual confirmation of strategy mix.
-         2. Script Modal (Interactive Text): Goal: Inform/Instruction. Presents the Master Script content clearly. Justification: Modals keep the main interface clean while holding dense text.
-         3. Production Status (Progress Bar): Goal: Track. Simple visual for completion. Justification: Encourages progress.
-         4. Resource Allocation (Bar Chart): Goal: Relationships. Shows who does what. Justification: Ensures no single resource is overworked.
+         1. Content Balance (Pie Chart): Updated to reflect the mix.
+         2. Script Modal: Handles short-form Story briefs as well.
          CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 </head>
 <body class="bg-slate-50">
@@ -79,7 +77,7 @@
     <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <span class="text-2xl">🏗️</span>
+                <!-- Logo Removed -->
                 <div>
                     <h1 class="text-xl font-bold tracking-tight">Sree Designer Hardwares</h1>
                     <p class="text-xs text-slate-400">Campaign Master Controller</p>
@@ -88,7 +86,6 @@
             <div class="hidden md:flex gap-6 text-sm font-medium">
                 <a href="#dashboard" class="hover:text-amber-400 transition">Strategy</a>
                 <a href="#production" class="hover:text-amber-400 transition">Production Hub</a>
-                <a href="#resources" class="hover:text-amber-400 transition">Resources</a>
             </div>
         </div>
     </header>
@@ -110,8 +107,8 @@
                     <!-- Metric 1 -->
                     <div class="bg-slate-50 p-4 rounded-lg border-l-4 border-amber-500">
                         <p class="text-xs font-bold text-slate-500 uppercase">Deliverables</p>
-                        <p class="text-2xl font-bold text-slate-800">10 Reels</p>
-                        <p class="text-sm text-slate-600">+ 6 Posters</p>
+                        <p class="text-2xl font-bold text-slate-800">20 Units</p>
+                        <p class="text-sm text-slate-600">10 Reels + 6 Posters + 4 Stories</p>
                     </div>
                     <!-- Metric 2 -->
                     <div class="bg-slate-50 p-4 rounded-lg border-l-4 border-emerald-500">
@@ -139,7 +136,7 @@
                 </div>
                 <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
                     <h3 class="text-lg font-bold text-slate-800 mb-2">Estimated Production Time</h3>
-                    <p class="text-sm text-slate-500 mb-4">Based on script complexity.</p>
+                    <p class="text-sm text-slate-500 mb-4">Reels vs. Quick Stories.</p>
                     <div class="chart-container">
                         <canvas id="timeChart"></canvas>
                     </div>
@@ -158,72 +155,17 @@
                     </p>
                 </div>
                 <!-- Filters -->
-                <div class="flex bg-white rounded-lg p-1 shadow-sm border border-slate-200">
-                    <button onclick="filterItems('all')" class="px-4 py-2 text-sm font-medium rounded-md bg-slate-800 text-white transition" id="btn-all">All</button>
-                    <button onclick="filterItems('reel')" class="px-4 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-50 transition" id="btn-reel">Reels (10)</button>
-                    <button onclick="filterItems('poster')" class="px-4 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-50 transition" id="btn-poster">Posters (6)</button>
+                <div class="flex bg-white rounded-lg p-1 shadow-sm border border-slate-200 overflow-x-auto">
+                    <button onclick="filterItems('all')" class="px-4 py-2 text-sm font-medium rounded-md bg-slate-800 text-white transition whitespace-nowrap" id="btn-all">All</button>
+                    <button onclick="filterItems('reel')" class="px-4 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-50 transition whitespace-nowrap" id="btn-reel">Reels (10)</button>
+                    <button onclick="filterItems('poster')" class="px-4 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-50 transition whitespace-nowrap" id="btn-poster">Posters (6)</button>
+                    <button onclick="filterItems('story')" class="px-4 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-50 transition whitespace-nowrap" id="btn-story">Stories (4)</button>
                 </div>
             </div>
 
             <!-- Grid -->
             <div id="contentGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Content injected via JS -->
-            </div>
-        </section>
-
-        <!-- RESOURCES & CHECKLIST -->
-        <section id="resources" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-                <h2 class="text-xl font-bold text-slate-800 mb-4">Shoot Day Checklist</h2>
-                <div class="space-y-4">
-                    <div class="flex items-start gap-3">
-                        <input type="checkbox" class="mt-1 w-4 h-4 text-amber-600 rounded focus:ring-amber-500">
-                        <div>
-                            <p class="font-medium text-slate-800">Lighting Setup (Chiaroscuro)</p>
-                            <p class="text-sm text-slate-500">Crucial for Reel 1 (Unboxing) & Reel 7 (Texture). Single light at 45°.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <input type="checkbox" class="mt-1 w-4 h-4 text-amber-600 rounded focus:ring-amber-500">
-                        <div>
-                            <p class="font-medium text-slate-800">Audio Check (Mic)</p>
-                            <p class="text-sm text-slate-500">Test lapel mic for Owner's speaking parts. Ensure AC is OFF.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <input type="checkbox" class="mt-1 w-4 h-4 text-amber-600 rounded focus:ring-amber-500">
-                        <div>
-                            <p class="font-medium text-slate-800">Prop Prep</p>
-                            <p class="text-sm text-slate-500">Clean the 3 handles for 'The Challenge'. Have the cutter ready for Unboxing.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <input type="checkbox" class="mt-1 w-4 h-4 text-amber-600 rounded focus:ring-amber-500">
-                        <div>
-                            <p class="font-medium text-slate-800">Gimbal Calibration</p>
-                            <p class="text-sm text-slate-500">Balance for Reel 5 (Before/After) and Reel 9 (Install) for stability.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-                <h2 class="text-xl font-bold text-slate-800 mb-4">Story Strategy (Engagement)</h2>
-                <p class="text-sm text-slate-600 mb-4">Don't just post; interact. Use these story ideas to boost algorithm ranking.</p>
-                <div class="space-y-3">
-                    <div class="p-3 bg-slate-50 rounded-lg border-l-4 border-pink-500">
-                        <p class="font-bold text-sm text-slate-800">Monday Quiz</p>
-                        <p class="text-xs text-slate-600">"What is this tool used for?" (Sticker)</p>
-                    </div>
-                    <div class="p-3 bg-slate-50 rounded-lg border-l-4 border-amber-500">
-                        <p class="font-bold text-sm text-slate-800">This or That</p>
-                        <p class="text-xs text-slate-600">"Black Handles OR Gold Handles?" (Poll)</p>
-                    </div>
-                    <div class="p-3 bg-slate-50 rounded-lg border-l-4 border-emerald-500">
-                        <p class="font-bold text-sm text-slate-800">Site Visit</p>
-                        <p class="text-xs text-slate-600">Video of Owner measuring a door. (Authenticity)</p>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -269,6 +211,7 @@
     <script>
         // --- Data Store ---
         const contentItems = [
+            // REELS
             {
                 id: 1, type: 'reel', title: 'The "ASMR" Unboxing', category: 'Aesthetic / Hook',
                 summary: 'Stop the scroll with satisfying sensory inputs. High quality production.',
@@ -287,7 +230,7 @@
             {
                 id: 4, type: 'reel', title: '"Don\'t Buy Until..."', category: 'Value / Saveable',
                 summary: 'Owner shares 3 mistakes people make. Highly saveable content.',
-                content: `**SCENE 1: INT. SHOWROOM**\n\n**OWNER:** (Leaning casually) "Don't buy a main door lock until you check these three things. Save this reel."\n\n**VISUAL:** Cut to B-Roll overlays.\n\n**VO:** "1. The Cylinder. If it's not brass, it will jam." (Visual: Key turning smooth).\n**VO:** "2. Finish Warranty. Is it PVD coated?" (Visual: Coin scratch test - no marks).\n**VO:** "3. Double Throw Mortise." (Visual: Bolt sliding out twice).\n\n**OWNER:** "Don't guess. Ask an expert. DM us your floor plan."\n\n**CAPTION:** 3 Rules for Main Door Locks 🚪🔒. Don't make expensive mistakes. #renovationhacks #constructiontips`
+                content: `**SCENE 1: INT. SHOWROOM**\n\n**OWNER:** (Leaning casually) "Don't buy a main door lock until you check these three things. Save this reel."\n\n**VISUAL:** Cut to B-Roll overlays.\n\n**VO:** "1. The Cylinder. If it's not brass, it will jam." (Visual: Key turning smooth).\n\n**VO:** "2. Finish Warranty. Is it PVD coated?" (Visual: Coin scratch test - no marks).\n\n**VO:** "3. Double Throw Mortise." (Visual: Bolt sliding out twice).\n\n**OWNER:** "Don't guess. Ask an expert. DM us your floor plan."\n\n**CAPTION:** 3 Rules for Main Door Locks 🚪🔒. Don't make expensive mistakes. #renovationhacks #constructiontips`
             },
             {
                 id: 5, type: 'reel', title: 'Reel: Store Before & After', category: 'Brand Journey / Link 3',
@@ -319,6 +262,7 @@
                 summary: 'Voting game to drive comments.',
                 content: `**SCENE 1: INT. TABLETOP**\n\n**VISUAL:** 3 Handles lined up.\n1. Antique Brass.\n2. Matte Black.\n3. Rose Gold.\n\n**ACTION:** Owner points to #1 ("The Classic?"). Points to #2 ("The Bold?"). Points to #3 ("The Glam?").\n\n**AUDIO:** "Pick one. Pick one. Pick one."\n\n**CAPTION:** Which one fits your vibe? 👇 Vote 1, 2, or 3! #thisorthat #designchoice`
             },
+            // POSTERS
             {
                 id: 11, type: 'poster', title: 'Mortise vs Rim Lock', category: 'Comparison',
                 summary: 'Educational infographic poster.',
@@ -348,6 +292,27 @@
                 id: 16, type: 'poster', title: 'Urgent Offer', category: 'Sales',
                 summary: 'Bold color for stopping scroll.',
                 content: `**BACKGROUND:** Brand Amber (Bright).\n**TEXT:** BIG BOLD: "WEEKEND SALE. 15% OFF KITCHEN PROFILES."\n**SUBTEXT:** "Friday - Sunday Only."`
+            },
+            // STORIES (NEW - Low Follower/Bad Store Strategy/Repurpose)
+            {
+                id: 17, type: 'story', title: 'Story: This or That', category: 'Poll / Low Effort',
+                summary: 'Simple tabletop engagement. Hides the store.',
+                content: `**STRATEGY:** Low followers mean people won't type answers. Tapping a poll is easier.\n\n**VISUAL:**\nPlace a Gold Handle on the left and a Black Handle on the right of a clean table (use a white sheet if table is ugly).\n\n**INTERACTIVE STICKER:**\n"POLL" Sticker.\nOption A: Gold Team\nOption B: Black Team\n\n**TEXT:**\n"Which one for a white door?"`
+            },
+            {
+                id: 18, type: 'story', title: 'Story: Guess the Product', category: 'Quiz / Macro',
+                summary: 'Zoomed-in mystery shot using existing macro footage.',
+                content: `**STRATEGY:** Gamification increases retention. Uses footage from Reel 7.\n\n**SOURCE ASSET:**\nClip from Reel 7 (The Details Shot).\n\n**VISUAL:**\nExtreme close-up of the diamond "knurling" texture. It looks abstract.\n\n**INTERACTIVE STICKER:**\n"QUIZ" Sticker.\nQuestion: "What is this?"\nOption A: Speaker Grill\nOption B: Handle Grip (Correct)\nOption C: Microphone\n\n**WHY:** Fun, easy interaction using assets you already have.`
+            },
+            {
+                id: 19, type: 'story', title: 'Story: The "Peel" Loop', category: 'Repurpose / Reel 9',
+                summary: 'Uses existing footage from Installation Reel. Zero new shoots.',
+                content: `**STRATEGY:** High visual satisfaction loop using existing content.\n\n**SOURCE ASSET:**\nClip from Reel 9 (The Installation Reveal).\n\n**VISUAL:**\nTake the 3-second clip of peeling the blue plastic film off the lock. Loop it continuously.\n\n**INTERACTIVE STICKER:**\n"Heart Eyes" Slider.\n\n**TEXT:**\n"Monday Therapy."\n\n**WHY:** Zero extra work. Looks satisfying.`
+            },
+            {
+                id: 20, type: 'story', title: 'Story: BTS Reality', category: 'Authenticity / Repurpose',
+                summary: 'Raw moment from the shoot day. Zero extra effort.',
+                content: `**STRATEGY:** Humanize the brand by showing the "mess" behind the polish.\n\n**SOURCE ASSET:**\nB-Roll or Outtake from Reel 6 (The Skit).\n\n**VISUAL:**\nThe Owner laughing after messing up a line, or the camera setup looking chaotic.\n\n**TEXT:**\n"What you see vs How we shot it. 😂"\n\n**WHY:** Relatable content performs well. Proves you are real people.`
             }
         ];
 
@@ -362,7 +327,7 @@
                 data: {
                     labels: ['Aesthetic', 'Education', 'Humor', 'Sales'],
                     datasets: [{
-                        data: [40, 30, 20, 10],
+                        data: [35, 30, 20, 15], // Adjusted slightly for stories
                         backgroundColor: ['#F59E0B', '#3B82F6', '#EC4899', '#10B981'],
                         borderWidth: 0
                     }]
@@ -379,10 +344,10 @@
             new Chart(ctxTime, {
                 type: 'bar',
                 data: {
-                    labels: ['Reel 1 (Unbox)', 'Reel 6 (Skit)', 'Reel 5 (Before/After)', 'Reel 8 (Montage)'],
+                    labels: ['Reel (Complex)', 'Reel (Montage)', 'Poster', 'Story (Quick)'],
                     datasets: [{
-                        label: 'Minutes to Shoot (Est)',
-                        data: [45, 60, 45, 30],
+                        label: 'Minutes to Create (Est)',
+                        data: [60, 30, 20, 5],
                         backgroundColor: '#64748B',
                         borderRadius: 4
                     }]
@@ -407,13 +372,21 @@
                 // Color coding based on Category
                 let borderColor = 'border-slate-200';
                 if(item.category.includes('Aesthetic') || item.category.includes('Showcase')) borderColor = 'border-amber-400';
-                if(item.category.includes('Education')) borderColor = 'border-blue-400';
-                if(item.category.includes('Humor')) borderColor = 'border-pink-400';
-                if(item.category.includes('Link')) borderColor = 'border-indigo-400';
+                if(item.category.includes('Education') || item.category.includes('Quiz') || item.category.includes('Trust')) borderColor = 'border-blue-400';
+                if(item.category.includes('Humor') || item.category.includes('Authenticity')) borderColor = 'border-pink-400';
+                if(item.category.includes('Link') || item.category.includes('Poll') || item.category.includes('Repurpose')) borderColor = 'border-indigo-400';
                 
+                // Story specific border style
+                if (item.type === 'story') {
+                    card.classList.add('ring-2', 'ring-purple-100');
+                    borderColor = 'border-purple-500';
+                }
+
                 card.classList.add('border-l-4', borderColor);
 
-                const icon = item.type === 'reel' ? '🎬' : '🖼️';
+                let icon = '🎬';
+                if (item.type === 'poster') icon = '🖼️';
+                if (item.type === 'story') icon = '📱';
 
                 card.innerHTML = `
                     <div class="flex justify-between items-start mb-3">
@@ -423,7 +396,7 @@
                     <h3 class="font-bold text-lg text-slate-800 mb-2">${item.title}</h3>
                     <p class="text-sm text-slate-500 line-clamp-2">${item.summary}</p>
                     <div class="mt-4 flex items-center text-xs font-medium text-amber-600">
-                        View Details <span class="ml-1">→</span>
+                        View Plan <span class="ml-1">→</span>
                     </div>
                 `;
                 
@@ -434,7 +407,7 @@
 
         function filterItems(type) {
             // Update button styles
-            ['all', 'reel', 'poster'].forEach(t => {
+            ['all', 'reel', 'poster', 'story'].forEach(t => {
                 const btn = document.getElementById(`btn-${t}`);
                 if (t === type) {
                     btn.classList.remove('bg-white', 'text-slate-600');
